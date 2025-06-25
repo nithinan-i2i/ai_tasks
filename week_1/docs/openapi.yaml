@@ -1,0 +1,336 @@
+openapi: 3.0.0
+info:
+  title: Travel Booking Platform API
+  version: 1.0.0
+  description: API documentation for the Travel Booking Platform
+servers:
+  - url: http://localhost:3000
+paths:
+  /auth/register:
+    post:
+      summary: Register a new user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserRegister'
+      responses:
+        '201':
+          description: User registered successfully
+        '400':
+          description: Invalid input
+  /auth/login:
+    post:
+      summary: User login
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserLogin'
+      responses:
+        '200':
+          description: Login successful
+        '401':
+          description: Invalid credentials
+  /destinations:
+    get:
+      summary: Get all destinations
+      responses:
+        '200':
+          description: List of destinations
+    post:
+      summary: Create a new destination
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Destination'
+      responses:
+        '201':
+          description: Destination created
+  /destinations/{id}:
+    get:
+      summary: Get a destination by ID
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Destination details
+        '404':
+          description: Not found
+    put:
+      summary: Update a destination
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Destination'
+      responses:
+        '200':
+          description: Destination updated
+    delete:
+      summary: Delete a destination
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Destination deleted
+  /experiences:
+    get:
+      summary: Get all experiences
+      responses:
+        '200':
+          description: List of experiences
+    post:
+      summary: Create a new experience
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Experience'
+      responses:
+        '201':
+          description: Experience created
+  /experiences/{id}:
+    get:
+      summary: Get an experience by ID
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Experience details
+        '404':
+          description: Not found
+    put:
+      summary: Update an experience
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Experience'
+      responses:
+        '200':
+          description: Experience updated
+    delete:
+      summary: Delete an experience
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Experience deleted
+  /bookings:
+    get:
+      summary: Get all bookings
+      responses:
+        '200':
+          description: List of bookings
+    post:
+      summary: Create a new booking
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Booking'
+      responses:
+        '201':
+          description: Booking created
+  /bookings/{id}:
+    get:
+      summary: Get a booking by ID
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Booking details
+        '404':
+          description: Not found
+  /bookings/{id}/cancel:
+    post:
+      summary: Cancel a booking
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Booking canceled
+  /reviews:
+    post:
+      summary: Create a new review
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Review'
+      responses:
+        '201':
+          description: Review created
+  /destinations/{id}/reviews:
+    get:
+      summary: Get reviews for a destination
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: List of reviews
+  /destinations/search:
+    get:
+      summary: Search destinations
+      parameters:
+        - in: query
+          name: name
+          schema:
+            type: string
+        - in: query
+          name: location
+          schema:
+            type: string
+        - in: query
+          name: rating
+          schema:
+            type: number
+      responses:
+        '200':
+          description: List of destinations
+  /experiences/search:
+    get:
+      summary: Search experiences
+      parameters:
+        - in: query
+          name: name
+          schema:
+            type: string
+        - in: query
+          name: type
+          schema:
+            type: string
+        - in: query
+          name: minPrice
+          schema:
+            type: number
+        - in: query
+          name: maxPrice
+          schema:
+            type: number
+      responses:
+        '200':
+          description: List of experiences
+components:
+  schemas:
+    UserRegister:
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+    UserLogin:
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+    Destination:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        location:
+          type: string
+        image_url:
+          type: string
+    Experience:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        type:
+          type: string
+        price:
+          type: number
+        currency:
+          type: string
+        destination_id:
+          type: string
+    Booking:
+      type: object
+      properties:
+        id:
+          type: string
+        user_id:
+          type: string
+        experience_id:
+          type: string
+        status:
+          type: string
+        booking_date:
+          type: string
+          format: date
+    Review:
+      type: object
+      properties:
+        id:
+          type: string
+        user_id:
+          type: string
+        destination_id:
+          type: string
+        rating:
+          type: integer
+        comment:
+          type: string

@@ -1,0 +1,23 @@
+{
+  "development": {
+    "dialect": "sqlite",
+    "storage": "./database.sqlite",
+    "migrationStorage": "sequelize",
+    "migrationStorageTableName": "sequelize_meta",
+    "migrationsPath": "D:/workspace/aiTasks/src/migrations"
+  },
+  "test": {
+    "dialect": "sqlite",
+    "storage": "./test-database.sqlite",
+    "migrationStorage": "sequelize",
+    "migrationStorageTableName": "sequelize_meta",
+    "migrationsPath": "D:/workspace/aiTasks/src/migrations"
+  },
+  "production": {
+    "dialect": "sqlite",
+    "storage": "./prod-database.sqlite",
+    "migrationStorage": "sequelize",
+    "migrationStorageTableName": "sequelize_meta",
+    "migrationsPath": "D:/workspace/aiTasks/src/migrations"
+  }
+}
