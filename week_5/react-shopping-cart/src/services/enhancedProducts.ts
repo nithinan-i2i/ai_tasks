@@ -297,4 +297,4 @@ export const getErrorDisplayMessage = (error: ApiError): string => {
 // ✅ NEW: Utility function to format error for logging
 export const formatErrorForLogging = (error: ApiError): string => {
   return `[${error.type}] ${error.message} (Status: ${error.statusCode || 'N/A'}, Retryable: ${error.retryable})`;
-};
+}; 

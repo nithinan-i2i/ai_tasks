@@ -11,6 +11,7 @@ import { ProductsProvider } from 'contexts/products-context';
 import { CartProvider } from 'contexts/cart-context';
 
 import App from 'components/App';
+import { monitoring, trackEvent } from 'utils/monitoring';
 
 const root = document.getElementById('root')!;
 const container = ReactDOMClient.createRoot(root);
@@ -27,3 +28,6 @@ container.render(
     </ThemeProvider>
   </StrictMode>
 );
+
+// Track app load event
+trackEvent('app_load', { timestamp: new Date(), url: window.location.href });

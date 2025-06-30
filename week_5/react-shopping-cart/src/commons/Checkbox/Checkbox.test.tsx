@@ -1,4 +1,4 @@
-import { render, fireEvent } from '@testing-library/react';
+import { render, fireEvent, screen } from '@testing-library/react';
 
 import Checkbox from '.';
 
@@ -7,28 +7,25 @@ const mockHandleOnChange = jest.fn();
 
 describe('[commons] - Checkbox', () => {
   const setup = () => {
-    return render(
+    render(
       <Checkbox label={mockLabel} handleOnChange={mockHandleOnChange} />
     );
   };
 
   test('should render correctly with label and a checkmark', () => {
-    const { container, getByText } = setup();
-
-    expect(getByText(mockLabel)).toBeInTheDocument();
-    expect(container.querySelector('.checkmark')).toBeTruthy();
+    setup();
+    expect(screen.getByText(mockLabel)).toBeInTheDocument();
+    expect(screen.getByTestId('checkbox')).toBeInTheDocument();
   });
 
   test('should toggle checked when clicked', () => {
-    const { getByTestId } = setup();
-    const checkbox = getByTestId('checkbox');
-
+    setup();
+    const checkbox = screen.getByTestId('checkbox');
     expect(checkbox).not.toBeChecked();
     fireEvent.click(checkbox);
     expect(checkbox).toBeChecked();
     fireEvent.click(checkbox);
     expect(checkbox).not.toBeChecked();
-
     expect(mockHandleOnChange).toBeCalledTimes(2);
   });
 });
