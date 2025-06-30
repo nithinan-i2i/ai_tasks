@@ -12,7 +12,7 @@ import { useProducts } from 'contexts/products-context';
 import * as S from './style';
 
 function App() {
-  const { isFetching, products, fetchProducts } = useProducts();
+  const { isFetching, products, fetchProducts, totalProducts } = useProducts();
 
   useEffect(() => {
     fetchProducts();
@@ -31,6 +31,10 @@ function App() {
         <S.Main>
           <S.MainHeader>
             <p>{products?.length} Product(s) found</p>
+            {/* Performance monitoring info */}
+            <small style={{ color: '#666', fontSize: '12px' }}>
+              Total products: {totalProducts} | Filtered: {products?.length || 0}
+            </small>
           </S.MainHeader>
           <Products products={products} />
         </S.Main>
